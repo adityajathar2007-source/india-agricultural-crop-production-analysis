@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>India's Agricultural Crop Production Analysis | BTech AI & Data Science Project</title>
+  <meta name="description" content="An academic data analytics project exploring agricultural crop production patterns across India through interactive Tableau Public visualizations and analytical storytelling.">
+  <meta name="keywords" content="India Crop Production, Agricultural Data Analytics, Tableau Public, AI & Data Science, BTech Project, Data Visualization">
+  <meta name="author" content="BTech AI & Data Science Academic Project">
+  
+  <!-- Google Fonts: Plus Jakarta Sans & Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23059669'><circle cx='12' cy='12' r='10'/><path d='M12 6v12M8 10l4-4 4 4' stroke='%23ffffff' stroke-width='2' stroke-linecap='round'/></svg>">
+
+  <!-- Tableau Embedding API v3 -->
+  <script type="module" src="https://public.tableau.com/javascripts/api/tableau.embedding.3.latest.min.js"></script>
+</head>
+<body>
+
+  <!-- ==================== HEADER & NAVIGATION ==================== -->
+  <header class="site-header" id="header">
+    <div class="nav-container">
+      <a href="#home" class="brand-logo" aria-label="Home">
+        <div class="brand-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2a10 10 0 0 1 10 10c0 5.523-4.477 10-10 10S2 17.523 2 12A10 10 0 0 1 12 2z"/>
+            <path d="M12 6v12"/>
+            <path d="M8 10l4-4 4 4"/>
+            <path d="M7 16c2.5-1.5 7.5-1.5 10 0"/>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <span class="brand-title">AgriAnalytics</span>
+          <span class="brand-tag">BTech AI & DS</span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav class="desktop-nav" aria-label="Main Navigation">
+        <ul class="nav-links">
+          <li><a href="#home" class="nav-link active">Home</a></li>
+          <li><a href="#overview" class="nav-link">Overview</a></li>
+          <li><a href="#objectives" class="nav-link">Objectives</a></li>
+          <li><a href="#dashboard" class="nav-link nav-highlight">Dashboard</a></li>
+          <li><a href="#story" class="nav-link nav-highlight">Story</a></li>
+          <li><a href="#insights" class="nav-link">Insights</a></li>
+          <li><a href="#methodology" class="nav-link">Methodology</a></li>
+          <li><a href="#conclusion" class="nav-link">Conclusion</a></li>
+        </ul>
+      </nav>
+
+      <!-- Mobile Hamburger Button -->
+      <button class="mobile-menu-toggle" id="mobileMenuBtn" aria-label="Toggle navigation menu" aria-expanded="false">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
+    </div>
+
+    <!-- Mobile Drawer Nav -->
+    <div class="mobile-nav-drawer" id="mobileDrawer">
+      <ul class="mobile-nav-links">
+        <li><a href="#home" class="mobile-nav-link">Home</a></li>
+        <li><a href="#overview" class="mobile-nav-link">Overview</a></li>
+        <li><a href="#objectives" class="mobile-nav-link">Objectives</a></li>
+        <li><a href="#dashboard" class="mobile-nav-link">Dashboard</a></li>
+        <li><a href="#story" class="mobile-nav-link">Story</a></li>
+        <li><a href="#insights" class="mobile-nav-link">Insights</a></li>
+        <li><a href="#methodology" class="mobile-nav-link">Methodology</a></li>
+        <li><a href="#conclusion" class="mobile-nav-link">Conclusion</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main>
+    <!-- ==================== HERO SECTION ==================== -->
+    <section class="hero-section" id="home">
+      <div class="hero-bg-overlay"></div>
+      <div class="hero-pattern-grid"></div>
+      <div class="container hero-content-wrapper">
+        <div class="hero-content">
+          <div class="academic-badge">
+            <span class="badge-dot"></span>
+            <span>BTech AI & Data Science Academic Project</span>
+            <span class="badge-divider">•</span>
+            <span>Agriculture + Data Analytics</span>
+          </div>
+
+          <h1 class="hero-title">
+            India's Agricultural Crop Production Analysis
+          </h1>
+
+          <p class="hero-subtitle">
+            Exploring crop production patterns across India through data analytics and interactive visualization.
+          </p>
+
+          <p class="hero-description">
+            This project analyzes agricultural crop production data to identify production patterns, compare crops and regions, and present meaningful insights through interactive Tableau visualizations.
+          </p>
+
+          <div class="hero-cta-group">
+            <a href="#dashboard" class="btn btn-primary" id="btnExploreDashboard">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                <line x1="3" y1="9" x2="21" y2="9"/>
+                <line x1="9" y1="21" x2="9" y2="9"/>
+              </svg>
+              <span>Explore Dashboard</span>
+            </a>
+
+            <a href="#story" class="btn btn-secondary" id="btnViewStory">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+                <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+              </svg>
+              <span>View Story</span>
+            </a>
+          </div>
+
+          <!-- Quick Info Pill Group -->
+          <div class="hero-pills">
+            <div class="hero-pill">
+              <span class="pill-icon">🌱</span>
+              <span class="pill-label">Domain:</span>
+              <span class="pill-val">Indian Agriculture</span>
+            </div>
+            <div class="hero-pill">
+              <span class="pill-icon">📊</span>
+              <span class="pill-label">Analytics:</span>
+              <span class="pill-val">Tableau Public API v3</span>
+            </div>
+            <div class="hero-pill">
+              <span class="pill-icon">🎓</span>
+              <span class="pill-label">Specialization:</span>
+              <span class="pill-val">AI & Data Science</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hero Visual Showcase -->
+        <div class="hero-visual">
+          <div class="visual-card">
+            <div class="visual-image-wrapper">
+              <img src="assets/hero-bg.jpg" alt="Agricultural Landscape and Analytical Overlay" class="visual-img" loading="eager">
+              <div class="visual-overlay"></div>
+            </div>
+            <div class="visual-caption">
+              <div class="caption-header">
+                <div class="caption-indicator"></div>
+                <span class="caption-title">Agricultural Analytics Interface</span>
+              </div>
+              <p class="caption-text">Connecting crop production datasets with interactive geospatial & multi-dimensional Tableau intelligence.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== PROJECT OVERVIEW ==================== -->
+    <section class="section overview-section" id="overview">
+      <div class="container">
+        <div class="section-header text-center">
+          <span class="section-tag">Academic Background</span>
+          <h2 class="section-title">Project Overview</h2>
+          <div class="section-divider"></div>
+          <p class="section-lead max-w-prose">
+            India's Agricultural Crop Production Analysis is a data analytics project focused on understanding agricultural crop production patterns in India. The project uses data visualization to explore crop production trends and present the results through an interactive Tableau dashboard and story.
+          </p>
+        </div>
+
+        <div class="overview-grid">
+          <!-- Card 1 -->
+          <div class="overview-card">
+            <div class="card-icon-bubble green">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/>
+                <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
+              </svg>
+            </div>
+            <h3 class="card-title">Crop Production</h3>
+            <p class="card-desc">
+              Examines crop production volumes, seasonal yields, and crop types to uncover underlying output characteristics and distribution across cultivation cycles.
+            </p>
+            <div class="card-footer-tag">Output Evaluation</div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="overview-card">
+            <div class="card-icon-bubble emerald">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="10" r="3"/>
+                <path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"/>
+              </svg>
+            </div>
+            <h3 class="card-title">Regional Analysis</h3>
+            <p class="card-desc">
+              Facilitates spatial and regional comparisons to highlight regional variations, state-level performance, and geographic patterns of crop production across India.
+            </p>
+            <div class="card-footer-tag">Geospatial Comparison</div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="overview-card">
+            <div class="card-icon-bubble blue">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                <line x1="8" y1="21" x2="16" y2="21"/>
+                <line x1="12" y1="17" x2="12" y2="21"/>
+                <path d="M6 8h.01M10 8h.01M14 8h.01"/>
+              </svg>
+            </div>
+            <h3 class="card-title">Data Visualization</h3>
+            <p class="card-desc">
+              Leverages visual analytics principles to convert complex structured agricultural datasets into clear, intuitive, and interactive Tableau dashboards.
+            </p>
+            <div class="card-footer-tag">Visual Discovery</div>
+          </div>
+
+          <!-- Card 4 -->
+          <div class="overview-card">
+            <div class="card-icon-bubble amber">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+              </svg>
+            </div>
+            <h3 class="card-title">Agricultural Insights</h3>
+            <p class="card-desc">
+              Provides an analytical foundation for researchers and students to interpret crop performance, historical behavior, and significant production trends.
+            </p>
+            <div class="card-footer-tag">Evidence-Based Insights</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== OBJECTIVES SECTION ==================== -->
+    <section class="section objectives-section bg-alt" id="objectives">
+      <div class="container">
+        <div class="section-header text-center">
+          <span class="section-tag">Project Goals</span>
+          <h2 class="section-title">Project Objectives</h2>
+          <div class="section-divider"></div>
+          <p class="section-lead max-w-prose">
+            The core research aims established for this BTech AI & Data Science academic inquiry.
+          </p>
+        </div>
+
+        <div class="objectives-grid">
+          <!-- Obj 1 -->
+          <div class="objective-card">
+            <div class="obj-header">
+              <span class="obj-number">01</span>
+              <div class="obj-icon-wrap">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+              </div>
+            </div>
+            <p class="obj-text">Analyze agricultural crop production data in India.</p>
+          </div>
+
+          <!-- Obj 2 -->
+          <div class="objective-card">
+            <div class="obj-header">
+              <span class="obj-number">02</span>
+              <div class="obj-icon-wrap">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg>
+              </div>
+            </div>
+            <p class="obj-text">Understand variations in crop production.</p>
+          </div>
+
+          <!-- Obj 3 -->
+          <div class="objective-card">
+            <div class="obj-header">
+              <span class="obj-number">03</span>
+              <div class="obj-icon-wrap">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+              </div>
+            </div>
+            <p class="obj-text">Compare production patterns across available categories/regions.</p>
+          </div>
+
+          <!-- Obj 4 -->
+          <div class="objective-card">
+            <div class="obj-header">
+              <span class="obj-number">04</span>
+              <div class="obj-icon-wrap">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              </div>
+            </div>
+            <p class="obj-text">Identify important trends and patterns in the dataset.</p>
+          </div>
+
+          <!-- Obj 5 -->
+          <div class="objective-card">
+            <div class="obj-header">
+              <span class="obj-number">05</span>
+              <div class="obj-icon-wrap">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M7 12h10"/><path d="M12 7v10"/></svg>
+              </div>
+            </div>
+            <p class="obj-text">Present the analysis using interactive Tableau visualizations.</p>
+          </div>
+
+          <!-- Obj 6 -->
+          <div class="objective-card">
+            <div class="obj-header">
+              <span class="obj-number">06</span>
+              <div class="obj-icon-wrap">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              </div>
+            </div>
+            <p class="obj-text">Communicate meaningful agricultural insights through a dashboard and story.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== METHODOLOGY SECTION ==================== -->
+    <section class="section methodology-section" id="methodology">
+      <div class="container">
+        <div class="section-header text-center">
+          <span class="section-tag">Analytical Process</span>
+          <h2 class="section-title">Data Analysis & Methodology</h2>
+          <div class="section-divider"></div>
+          <p class="section-lead max-w-prose">
+            A systematic data analytics methodology following standard data science lifecycle practices.
+          </p>
+        </div>
+
+        <!-- Timeline: Horizontal on Desktop, Vertical on Mobile -->
+        <div class="methodology-timeline">
+          <div class="timeline-track"></div>
+          
+          <!-- Step 1 -->
+          <div class="timeline-step">
+            <div class="step-marker">
+              <span class="step-num">1</span>
+            </div>
+            <div class="step-card">
+              <div class="step-icon">📁</div>
+              <h4 class="step-title">Data Collection</h4>
+              <p class="step-desc">Acquisition of agricultural crop production data for structured analysis.</p>
+            </div>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="timeline-step">
+            <div class="step-marker">
+              <span class="step-num">2</span>
+            </div>
+            <div class="step-card">
+              <div class="step-icon">🧹</div>
+              <h4 class="step-title">Data Cleaning</h4>
+              <p class="step-desc">Handling missing values, data anomalies, and ensuring field consistency.</p>
+            </div>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="timeline-step">
+            <div class="step-marker">
+              <span class="step-num">3</span>
+            </div>
+            <div class="step-card">
+              <div class="step-icon">🔍</div>
+              <h4 class="step-title">Data Exploration</h4>
+              <p class="step-desc">Initial exploratory inspection of distributions, variables, and categories.</p>
+            </div>
+          </div>
+
+          <!-- Step 4 -->
+          <div class="timeline-step">
+            <div class="step-marker">
+              <span class="step-num">4</span>
+            </div>
+            <div class="step-card">
+              <div class="step-icon">📐</div>
+              <h4 class="step-title">Data Analysis</h4>
+              <p class="step-desc">Examining crop production variations across regions, types, and periods.</p>
+            </div>
+          </div>
+
+          <!-- Step 5 -->
+          <div class="timeline-step">
+            <div class="step-marker">
+              <span class="step-num">5</span>
+            </div>
+            <div class="step-card">
+              <div class="step-icon">📊</div>
+              <h4 class="step-title">Data Visualization</h4>
+              <p class="step-desc">Designing visual representations to convey patterns and relationships effectively.</p>
+            </div>
+          </div>
+
+          <!-- Step 6 -->
+          <div class="timeline-step">
+            <div class="step-marker">
+              <span class="step-num">6</span>
+            </div>
+            <div class="step-card">
+              <div class="step-icon">🖥️</div>
+              <h4 class="step-title">Tableau Dashboard</h4>
+              <p class="step-desc">Integrating multi-view interactive dashboards with responsive user controls.</p>
+            </div>
+          </div>
+
+          <!-- Step 7 -->
+          <div class="timeline-step">
+            <div class="step-marker">
+              <span class="step-num">7</span>
+            </div>
+            <div class="step-card">
+              <div class="step-icon">💡</div>
+              <h4 class="step-title">Insights</h4>
+              <p class="step-desc">Synthesizing meaningful agricultural conclusions through data storytelling.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TABLEAU DASHBOARD SECTION ==================== -->
+    <section class="section viz-section bg-tableau-section" id="dashboard">
+      <div class="container-fluid">
+        <div class="section-header text-center">
+          <div class="live-status-pill">
+            <span class="pulsing-dot"></span>
+            <span>Tableau Public Live Embed</span>
+          </div>
+          <h2 class="section-title">Interactive Tableau Dashboard</h2>
+          <div class="section-divider"></div>
+          <p class="section-lead max-w-prose">
+            Explore India's agricultural crop production data through the interactive Tableau dashboard.
+          </p>
+        </div>
+
+        <!-- Tableau Toolbar Actions -->
+        <div class="tableau-control-bar">
+          <div class="control-bar-left">
+            <span class="meta-item">
+              <strong>Workbook:</strong> India_Agricultural_Crop_Production_Analysis_Final_1
+            </span>
+            <span class="meta-sep">|</span>
+            <span class="meta-item">
+              <strong>View:</strong> IndiasAgriculturalCropProductionAnalysis
+            </span>
+          </div>
+          <div class="control-bar-right">
+            <button class="action-btn" id="btnDashboardFullscreen" title="Toggle Fullscreen">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+              <span>Fullscreen</span>
+            </button>
+            <button class="action-btn" id="btnDashboardReload" title="Reload Visualization">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+              <span>Reload</span>
+            </button>
+            <a href="https://public.tableau.com/views/India_Agricultural_Crop_Production_Analysis_Final_1/IndiasAgriculturalCropProductionAnalysis" target="_blank" rel="noopener noreferrer" class="action-btn primary" title="Open on Tableau Public">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              <span>Tableau Public</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Tableau Dashboard Container -->
+        <div class="tableau-embed-wrapper" id="dashboardContainer">
+          <!-- Loading Overlay -->
+          <div class="viz-loading-state" id="dashboardLoader">
+            <div class="spinner-ring"></div>
+            <p class="loading-title">Loading Tableau Public Dashboard...</p>
+            <p class="loading-sub">Connecting to Tableau Public Embedding API v3</p>
+          </div>
+
+          <!-- Tableau Web Component -->
+          <tableau-viz
+            id="tableauDashboardViz"
+            src="https://public.tableau.com/views/India_Agricultural_Crop_Production_Analysis_Final_1/IndiasAgriculturalCropProductionAnalysis"
+            toolbar="bottom"
+            hide-tabs>
+          </tableau-viz>
+        </div>
+
+        <div class="tableau-footer-caption text-center">
+          <p class="caption-note">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+            Interactive visualization powered by Tableau Public.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TABLEAU STORY SECTION ==================== -->
+    <section class="section viz-section bg-story-section" id="story">
+      <div class="container-fluid">
+        <div class="section-header text-center">
+          <div class="live-status-pill story-pill">
+            <span class="pulsing-dot amber"></span>
+            <span>Tableau Public Story Point</span>
+          </div>
+          <h2 class="section-title">Agricultural Crop Production Story</h2>
+          <div class="section-divider"></div>
+          <p class="section-lead max-w-prose">
+            Explore the analytical story created from the agricultural crop production dataset.
+          </p>
+        </div>
+
+        <!-- Tableau Story Toolbar Actions -->
+        <div class="tableau-control-bar">
+          <div class="control-bar-left">
+            <span class="meta-item">
+              <strong>Workbook:</strong> India_Agricultural_Crop_Production_Analysis_Final_1
+            </span>
+            <span class="meta-sep">|</span>
+            <span class="meta-item">
+              <strong>Story:</strong> Story1
+            </span>
+          </div>
+          <div class="control-bar-right">
+            <button class="action-btn" id="btnStoryFullscreen" title="Toggle Fullscreen">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+              <span>Fullscreen</span>
+            </button>
+            <button class="action-btn" id="btnStoryReload" title="Reload Visualization">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+              <span>Reload</span>
+            </button>
+            <a href="https://public.tableau.com/app/profile/aditya.jathar/viz/India_Agricultural_Crop_Production_Analysis_Final_1/Story1?publish=yes" target="_blank" rel="noopener noreferrer" class="action-btn primary" title="Open on Tableau Public">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              <span>Tableau Story</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Tableau Story Container -->
+        <div class="tableau-embed-wrapper story-wrapper" id="storyContainer">
+          <!-- Loading Overlay -->
+          <div class="viz-loading-state" id="storyLoader">
+            <div class="spinner-ring"></div>
+            <p class="loading-title">Loading Tableau Public Story...</p>
+            <p class="loading-sub">Connecting to Tableau Public Embedding API v3</p>
+          </div>
+
+          <!-- Tableau Web Component -->
+          <tableau-viz
+            id="tableauStoryViz"
+            src="https://public.tableau.com/views/India_Agricultural_Crop_Production_Analysis_Final_1/Story1"
+            toolbar="bottom"
+            hide-tabs>
+          </tableau-viz>
+        </div>
+
+        <div class="tableau-footer-caption text-center">
+          <p class="caption-note">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+            Interactive analytical story powered by Tableau Public.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== KEY INSIGHTS SECTION ==================== -->
+    <section class="section insights-section bg-alt" id="insights">
+      <div class="container">
+        <div class="section-header text-center">
+          <span class="section-tag">Analytical Discoveries</span>
+          <h2 class="section-title">Key Insights</h2>
+          <div class="section-divider"></div>
+          <p class="section-lead max-w-prose">
+            Key analytical observations derived directly from the Tableau visualizations.
+          </p>
+        </div>
+
+        <!-- Notice Banner ensuring strict adherence to project requirements -->
+        <div class="insights-notice-banner">
+          <div class="notice-icon">📌</div>
+          <div class="notice-text">
+            <strong>Academic Project Notice:</strong> To maintain strict academic integrity and avoid unverified statistical claims, the cards below are structured as verified finding containers. Users and project evaluators can populate specific numeric findings directly as observed in the live interactive Tableau dashboard and story above.
+          </div>
+        </div>
+
+        <div class="insights-grid">
+          <!-- Insight 1 -->
+          <div class="insight-card">
+            <div class="insight-header">
+              <span class="insight-badge">Tableau Observation 1</span>
+              <span class="insight-category">Crop Distribution</span>
+            </div>
+            <h3 class="insight-title">Insight from Tableau Analysis</h3>
+            <div class="insight-body">
+              <p class="insight-text placeholder-text">
+                Add verified project finding here.
+              </p>
+              <div class="insight-field-note">
+                (Observe crop yield distributions and production shares across primary crop types from the interactive dashboard.)
+              </div>
+            </div>
+            <div class="insight-card-footer">
+              <span class="eval-tag">Verified Dashboard Finding</span>
+            </div>
+          </div>
+
+          <!-- Insight 2 -->
+          <div class="insight-card">
+            <div class="insight-header">
+              <span class="insight-badge">Tableau Observation 2</span>
+              <span class="insight-category">Regional Variation</span>
+            </div>
+            <h3 class="insight-title">Insight from Tableau Analysis</h3>
+            <div class="insight-body">
+              <p class="insight-text placeholder-text">
+                Add verified project finding here.
+              </p>
+              <div class="insight-field-note">
+                (Examine state-level variations and regional production disparities represented in the geospatial visualizations.)
+              </div>
+            </div>
+            <div class="insight-card-footer">
+              <span class="eval-tag">Verified Dashboard Finding</span>
+            </div>
+          </div>
+
+          <!-- Insight 3 -->
+          <div class="insight-card">
+            <div class="insight-header">
+              <span class="insight-badge">Tableau Observation 3</span>
+              <span class="insight-category">Seasonal Dynamics</span>
+            </div>
+            <h3 class="insight-title">Insight from Tableau Analysis</h3>
+            <div class="insight-body">
+              <p class="insight-text placeholder-text">
+                Add verified project finding here.
+              </p>
+              <div class="insight-field-note">
+                (Analyze production patterns across Kharif, Rabi, and summer cropping seasons based on available dataset segments.)
+              </div>
+            </div>
+            <div class="insight-card-footer">
+              <span class="eval-tag">Verified Dashboard Finding</span>
+            </div>
+          </div>
+
+          <!-- Insight 4 -->
+          <div class="insight-card">
+            <div class="insight-header">
+              <span class="insight-badge">Tableau Observation 4</span>
+              <span class="insight-category">Story Point Findings</span>
+            </div>
+            <h3 class="insight-title">Insight from Tableau Analysis</h3>
+            <div class="insight-body">
+              <p class="insight-text placeholder-text">
+                Add verified project finding here.
+              </p>
+              <div class="insight-field-note">
+                (Document sequential narrative insights discovered during review of Story Point 1 in the Tableau Story view.)
+              </div>
+            </div>
+            <div class="insight-card-footer">
+              <span class="eval-tag">Verified Story Point Finding</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== PROJECT WORKFLOW SECTION ==================== -->
+    <section class="section workflow-section" id="workflow">
+      <div class="container">
+        <div class="section-header text-center">
+          <span class="section-tag">End-to-End Pipeline</span>
+          <h2 class="section-title">Project Workflow</h2>
+          <div class="section-divider"></div>
+          <p class="section-lead max-w-prose">
+            A structured workflow illustrating each sequential phase from raw agricultural records to interactive storytelling.
+          </p>
+        </div>
+
+        <div class="workflow-chain">
+          <!-- Stage 1 -->
+          <div class="workflow-node">
+            <div class="node-pill">01</div>
+            <div class="node-icon-box">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+            </div>
+            <h4 class="node-title">DATA</h4>
+            <p class="node-desc">Sourcing crop production records covering crops, areas, and yields.</p>
+          </div>
+
+          <div class="workflow-arrow">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </div>
+
+          <!-- Stage 2 -->
+          <div class="workflow-node">
+            <div class="node-pill">02</div>
+            <div class="node-icon-box">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>
+            </div>
+            <h4 class="node-title">CLEANING</h4>
+            <p class="node-desc">Handling missing attributes, formatting types, and validating records.</p>
+          </div>
+
+          <div class="workflow-arrow">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </div>
+
+          <!-- Stage 3 -->
+          <div class="workflow-node">
+            <div class="node-pill">03</div>
+            <div class="node-icon-box">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            </div>
+            <h4 class="node-title">EXPLORATION</h4>
+            <p class="node-desc">Statistical inspection of crop parameters, variability, and distributions.</p>
+          </div>
+
+          <div class="workflow-arrow">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </div>
+
+          <!-- Stage 4 -->
+          <div class="workflow-node">
+            <div class="node-pill">04</div>
+            <div class="node-icon-box">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+            </div>
+            <h4 class="node-title">ANALYSIS</h4>
+            <p class="node-desc">Evaluating relationships, state aggregates, and crop categories.</p>
+          </div>
+
+          <div class="workflow-arrow">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </div>
+
+          <!-- Stage 5 -->
+          <div class="workflow-node">
+            <div class="node-pill">05</div>
+            <div class="node-icon-box">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+            </div>
+            <h4 class="node-title">VISUALIZATION</h4>
+            <p class="node-desc">Designing visual encodings, geospatial layers, and charts.</p>
+          </div>
+
+          <div class="workflow-arrow">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </div>
+
+          <!-- Stage 6 -->
+          <div class="workflow-node">
+            <div class="node-pill">06</div>
+            <div class="node-icon-box">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+            </div>
+            <h4 class="node-title">DASHBOARD</h4>
+            <p class="node-desc">Composing the unified interactive Tableau workbook view.</p>
+          </div>
+
+          <div class="workflow-arrow">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </div>
+
+          <!-- Stage 7 -->
+          <div class="workflow-node">
+            <div class="node-pill">07</div>
+            <div class="node-icon-box">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            </div>
+            <h4 class="node-title">STORY</h4>
+            <p class="node-desc">Structuring narrative checkpoints in Tableau Story format.</p>
+          </div>
+
+          <div class="workflow-arrow">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </div>
+
+          <!-- Stage 8 -->
+          <div class="workflow-node highlight-node">
+            <div class="node-pill">08</div>
+            <div class="node-icon-box">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+            </div>
+            <h4 class="node-title">INSIGHTS</h4>
+            <p class="node-desc">Deriving actionable knowledge and academic interpretations.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== CONCLUSION SECTION ==================== -->
+    <section class="section conclusion-section bg-alt" id="conclusion">
+      <div class="container">
+        <div class="conclusion-box">
+          <div class="conclusion-badge">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            <span>Academic Synthesis</span>
+          </div>
+
+          <h2 class="conclusion-title">Project Conclusion</h2>
+
+          <p class="conclusion-statement">
+            The project demonstrates how data analytics and visualization can be used to explore India's agricultural crop production patterns. The Tableau dashboard and story provide an interactive way to examine the available data and communicate meaningful insights.
+          </p>
+
+          <div class="conclusion-pillars">
+            <div class="pillar-card">
+              <h4 class="pillar-title">Analytical Value</h4>
+              <p class="pillar-text">Transforms tabular records into interactive visual representations that facilitate exploratory inquiry.</p>
+            </div>
+
+            <div class="pillar-card">
+              <h4 class="pillar-title">Technical Integration</h4>
+              <p class="pillar-text">Combines modern web engineering standards with Tableau Embedding API v3 for seamless browser interaction.</p>
+            </div>
+
+            <div class="pillar-card">
+              <h4 class="pillar-title">Domain Application</h4>
+              <p class="pillar-text">Applies AI & Data Science principles directly to key challenges in Indian agricultural data exploration.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="brand-logo footer-logo">
+            <div class="brand-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 2a10 10 0 0 1 10 10c0 5.523-4.477 10-10 10S2 17.523 2 12A10 10 0 0 1 12 2z"/>
+                <path d="M12 6v12"/>
+                <path d="M8 10l4-4 4 4"/>
+              </svg>
+            </div>
+            <div class="brand-text">
+              <span class="brand-title">AgriAnalytics</span>
+            </div>
+          </div>
+          <p class="footer-project-title">
+            India's Agricultural Crop Production Analysis
+          </p>
+          <p class="footer-project-meta">
+            BTech AI & Data Science Project
+          </p>
+          <div class="footer-domain-badge">
+            Data Analytics • Tableau • Agriculture
+          </div>
+        </div>
+
+        <div class="footer-links-group">
+          <h4 class="footer-heading">Navigation</h4>
+          <ul class="footer-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#overview">Project Overview</a></li>
+            <li><a href="#objectives">Objectives</a></li>
+            <li><a href="#methodology">Methodology</a></li>
+            <li><a href="#conclusion">Conclusion</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-links-group">
+          <h4 class="footer-heading">Visualizations</h4>
+          <ul class="footer-links">
+            <li><a href="#dashboard">Interactive Dashboard</a></li>
+            <li><a href="#story">Tableau Story</a></li>
+            <li><a href="#insights">Key Insights</a></li>
+            <li><a href="#workflow">Project Workflow</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-links-group">
+          <h4 class="footer-heading">External Assets</h4>
+          <ul class="footer-links">
+            <li>
+              <a href="https://public.tableau.com/views/India_Agricultural_Crop_Production_Analysis_Final_1/IndiasAgriculturalCropProductionAnalysis" target="_blank" rel="noopener noreferrer">
+                Tableau Dashboard ↗
+              </a>
+            </li>
+            <li>
+              <a href="https://public.tableau.com/app/profile/aditya.jathar/viz/India_Agricultural_Crop_Production_Analysis_Final_1/Story1?publish=yes" target="_blank" rel="noopener noreferrer">
+                Tableau Story ↗
+              </a>
+            </li>
+            <li>
+              <a href="https://public.tableau.com" target="_blank" rel="noopener noreferrer">
+                Tableau Public Platform ↗
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p class="copyright-text">
+          &copy; 2026 India's Agricultural Crop Production Analysis. All rights reserved.
+        </p>
+        <button class="back-to-top" id="btnBackToTop" title="Back to top">
+          <span>Top</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m18 15-6-6-6 6"/></svg>
+        </button>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Script -->
+  <script src="script.js"></script>
+</body>
+</html>
