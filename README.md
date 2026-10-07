@@ -1,4 +1,4 @@
-# 🇮🇳 India's Agricultural Crop Production Analysis
+#India's Agricultural Crop Production Analysis
 
 ## 📊 Project Overview
 
