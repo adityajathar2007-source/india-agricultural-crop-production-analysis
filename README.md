@@ -34,6 +34,29 @@ The main objectives of this project are:
 
 ---
 
+### 📊 Dashboard
+
+The Tableau Dashboard provides an interactive overview of India's agricultural crop production, including KPIs, crop-wise production, season-wise analysis, state-wise comparisons, geographic distribution, and year-wise trends.
+
+👉 [View Tableau Dashboard](https://public.tableau.com/app/profile/aditya.jathar/viz/India_Agricultural_Crop_Production_Analysis_Final_1/IndiasAgriculturalCropProductionAnalysis?publish=yes)
+
+---
+
+### 📖 Story
+
+The Tableau Story presents the project findings through a sequence of six story points:
+
+1. Agricultural Overview
+2. Geographic Distribution of Agricultural Production
+3. Crop-wise Agricultural Production Analysis
+4. Season-wise Agricultural Production Analysis
+5. State-wise Agricultural Production Comparison
+6. Year-wise Agricultural Production Trend
+
+👉 [View Tableau Story](https://public.tableau.com/app/profile/aditya.jathar/viz/India_Agricultural_Crop_Production_Analysis_Final_1/Story1?publish=yes)
+
+---
+
 ## 📁 Project Structure
 
 text
